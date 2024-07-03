@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumberString, IsUrl } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumberString, IsUrl, IsOptional } from 'class-validator';
 
 export class CreatePaymentDto {
   @IsNumberString()
@@ -10,11 +10,11 @@ export class CreatePaymentDto {
   description: string;
 
   @IsUrl()
-  @IsNotEmpty()
-  redirectUrl: string;
+  @IsOptional()
+  redirectUrl?: string;
 
   @IsUrl()
-  @IsNotEmpty()
-  webhookUrl: string;
+  @IsOptional()
+  webhookUrl?: string;
 }
 

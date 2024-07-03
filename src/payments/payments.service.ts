@@ -13,7 +13,7 @@ export class PaymentsService {
     @Inject(Services.Mollie) private readonly mollieClient: MollieClient,
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
-  ) {}
+  ) { }
 
   async createPayment(createPaymentDto: CreatePaymentDto) {
     const molliePayment = await this.mollieClient.payments.create({
@@ -22,8 +22,8 @@ export class PaymentsService {
         value: createPaymentDto.amount,
       },
       description: createPaymentDto.description,
-      redirectUrl: createPaymentDto.redirectUrl,
-      webhookUrl: createPaymentDto.webhookUrl,
+      redirectUrl:'https://example.com/redirect',
+      webhookUrl: 'https://webhook.site/2b4362c4-28cc-4f4f-886f-fec0ca65f895',
     });
 
     const payment = this.paymentRepository.create({
@@ -40,7 +40,7 @@ export class PaymentsService {
 
     return {
       ...payment,
-      paymentUrl: molliePayment.getCheckoutUrl(), 
+      paymentUrl: molliePayment.getCheckoutUrl(),
     };
   }
 
