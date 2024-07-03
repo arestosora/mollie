@@ -18,7 +18,7 @@ export class PaymentsService {
   async createPayment(createPaymentDto: CreatePaymentDto) {
     const molliePayment = await this.mollieClient.payments.create({
       amount: {
-        currency: 'EUR',
+        currency: 'GBP',
         value: createPaymentDto.amount,
       },
       description: createPaymentDto.description,
