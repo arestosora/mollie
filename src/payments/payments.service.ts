@@ -22,8 +22,8 @@ export class PaymentsService {
         value: createPaymentDto.amount,
       },
       description: createPaymentDto.description,
-      redirectUrl:'https://example.com/redirect',
-      webhookUrl: 'https://webhook.site/2b4362c4-28cc-4f4f-886f-fec0ca65f895',
+      redirectUrl: process.env.REDIRECT_URL,
+      webhookUrl: process.env.WEBHOOK_URL,
     });
 
     const payment = this.paymentRepository.create({
@@ -56,6 +56,7 @@ export class PaymentsService {
 
     const molliePayment = await this.mollieClient.payments.get(webhookDto.id);
     payment.status = molliePayment.status;
+    console.log(payment.status);
 
     await this.paymentRepository.save(payment);
 
