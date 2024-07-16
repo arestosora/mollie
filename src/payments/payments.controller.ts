@@ -5,7 +5,7 @@ import { WebhookDto } from './webhook.dto';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(private readonly paymentsService: PaymentsService) {}
+  constructor(private readonly paymentsService: PaymentsService) { }
 
   @Post('create')
   async createPayment(@Body() createPaymentDto: CreatePaymentDto) {
@@ -14,7 +14,7 @@ export class PaymentsController {
       return payment;
     } catch (error) {
       console.log(error);
-      throw new HttpException('Payment creation failed', HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Payment creation failed ${error}`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -34,7 +34,7 @@ export class PaymentsController {
       const result = await this.paymentsService.handleWebhook(webhookDto);
       return result;
     } catch (error) {
-      throw new HttpException('Webhook handling failed', HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Webhook handling failed ${error}`, HttpStatus.BAD_REQUEST);
     }
   }
 }
