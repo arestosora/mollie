@@ -159,7 +159,6 @@ export class CreateDeathDto {
   'Is-the-Person-In-Enquity-a-Female': string;
 
   @IsNotEmpty()
-  @IsNumber()
   'Age-at-death-in-Years': number;
 
   @IsNotEmpty()
@@ -271,7 +270,6 @@ export class CreateDivorceDto {
   'Case-Number'?: string;
 
   @IsOptional()
-  @IsString()
   'Date-or-year-The-Decree-NISI-was-made-absolute'?: string;
 
   @IsOptional()
