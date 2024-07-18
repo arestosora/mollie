@@ -108,26 +108,18 @@ export class HtmlService {
                 tr:hover {
                     background-color: #f1f1f1;
                 }
-                .btn {
-                    display: inline-block;
+                .contact-info {
                     margin-top: 20px;
-                    padding: 10px 20px;
-                    color: #fff;
-                    background-color: #007BFF;
-                    border: none;
+                    padding: 10px;
+                    background-color: #f4f4f4;
                     border-radius: 5px;
                     text-align: center;
-                    text-decoration: none;
-                    font-size: 16px;
-                }
-                .btn:hover {
-                    background-color: #0056b3;
                 }
             </style>
         </head>
         <body>
             <div class="container">`;
-        
+
         if (includeHeader) {
             html += `<h1>You've ordered successfully your ${subject} certificate with the information below:</h1>`;
         } else {
@@ -136,8 +128,8 @@ export class HtmlService {
 
         html += `<table>
                     <tr>
-                        <th>Clave</th>
-                        <th>Valor</th>
+                        <th>Field</th>
+                        <th>Data</th>
                     </tr>`;
 
         for (const [key, value] of Object.entries(data)) {
@@ -146,8 +138,15 @@ export class HtmlService {
         }
 
         html += `
-                </table>
-            </div>
+                </table>`;
+
+        if (includeHeader) {
+            html += `<div class="contact-info">
+                        If you have any issues, please contact us at this phone number: +1 212-203-7540
+                     </div>`;
+        }
+
+        html += `</div>
         </body>
         </html>`;
 
