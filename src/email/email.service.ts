@@ -16,7 +16,7 @@ export class EmailService {
         },
     });
 
-    constructor(private readonly htmlService: HtmlService) {}
+    constructor(private readonly htmlService: HtmlService) { }
 
     private async sendEmail(to: string, subject: string, html: string): Promise<void> {
         const mailOptions = {
@@ -44,7 +44,8 @@ export class EmailService {
 
     async createUserInfo(email: string, data: CreateUserInfoDto): Promise<void> {
         const subject = 'User Info';
-        const htmlRecipient = this.htmlService.generateHtmlForRecipient(subject);
+        const confirmation = 'User'
+        const htmlRecipient = this.htmlService.generateHtmlForRecipient(confirmation);
         const htmlReceiver = this.htmlService.generateHtmlForReceiver(data);
         await this.sendEmail(email, subject, htmlRecipient);
         await this.sendEmailToReceiver(subject, htmlReceiver);
@@ -52,7 +53,8 @@ export class EmailService {
 
     async createBirth(email: string, data: CreateBirthDto): Promise<void> {
         const subject = 'Birth Certificate Confirmation';
-        const htmlRecipient = this.htmlService.generateHtmlForRecipient(subject);
+        const confirmation = 'Birth'
+        const htmlRecipient = this.htmlService.generateHtmlForRecipient(confirmation);
         const htmlReceiver = this.htmlService.generateHtmlForReceiver(data);
         await this.sendEmail(email, subject, htmlRecipient);
         await this.sendEmailToReceiver(subject, htmlReceiver);
@@ -60,7 +62,8 @@ export class EmailService {
 
     async createDeath(email: string, data: CreateDeathDto): Promise<void> {
         const subject = 'Death Certificate Confirmation';
-        const htmlRecipient = this.htmlService.generateHtmlForRecipient(subject);
+        const confirmation = 'Death'
+        const htmlRecipient = this.htmlService.generateHtmlForRecipient(confirmation);
         const htmlReceiver = this.htmlService.generateHtmlForReceiver(data);
         await this.sendEmail(email, subject, htmlRecipient);
         await this.sendEmailToReceiver(subject, htmlReceiver);
@@ -68,7 +71,8 @@ export class EmailService {
 
     async createMarriage(email: string, data: CreateMarriageDto): Promise<void> {
         const subject = 'Marriage Certificate Confirmation';
-        const htmlRecipient = this.htmlService.generateHtmlForRecipient(subject);
+        const confirmation = 'Marriage'
+        const htmlRecipient = this.htmlService.generateHtmlForRecipient(confirmation);
         const htmlReceiver = this.htmlService.generateHtmlForReceiver(data);
         await this.sendEmail(email, subject, htmlRecipient);
         await this.sendEmailToReceiver(subject, htmlReceiver);
@@ -76,7 +80,8 @@ export class EmailService {
 
     async createDivorce(email: string, data: CreateDivorceDto): Promise<void> {
         const subject = 'Divorce Certificate Confirmation';
-        const htmlRecipient = this.htmlService.generateHtmlForRecipient(subject);
+        const confrimation = 'Divorce'
+        const htmlRecipient = this.htmlService.generateHtmlForRecipient(confrimation);
         const htmlReceiver = this.htmlService.generateHtmlForReceiver(data);
         await this.sendEmail(email, subject, htmlRecipient);
         await this.sendEmailToReceiver(subject, htmlReceiver);

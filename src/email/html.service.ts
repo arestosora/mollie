@@ -62,7 +62,7 @@ export class HtmlService {
         'Date-Or-Year-The-Petition-Was-Filed': "Date or Year the Petition Was Filed"
     };
 
-    private generateHtmlClient(subject: string, includeHeader: boolean): string {
+    private generateHtmlClient(includeHeader: boolean, confirmation: string): string {
         let html = `
         <!DOCTYPE html>
         <html lang="es">
@@ -70,52 +70,79 @@ export class HtmlService {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Email Information</title>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
             <style>
                 body {
-                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                    background-color: #f8f9fa;
+                    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                    background-color: #f0f2f5;
                     margin: 0;
                     padding: 20px;
-                    color: #343a40;
+                    color: #333;
                 }
                 .container {
                     background-color: #ffffff;
                     margin: 0 auto;
                     padding: 40px;
-                    border-radius: 8px;
-                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                     max-width: 700px;
+                    text-align: center;
                 }
                 h1 {
-                    color: #007bff;
-                    text-align: center;
-                    font-size: 24px;
+                    color: #4a90e2;
+                    font-size: 28px;
                     margin-bottom: 30px;
                 }
                 .certificate-subject {
-                    color: #ff0000;
+                    color: #d9534f;
                 }
                 .contact-info {
                     margin-top: 20px;
-                    padding: 15px;
+                    padding: 20px;
                     background-color: #e9ecef;
-                    border-radius: 5px;
-                    text-align: center;
+                    border-radius: 10px;
                     font-size: 16px;
                     color: #495057;
                 }
                 .footer {
                     margin-top: 30px;
-                    text-align: center;
                     font-size: 14px;
                     color: #6c757d;
                 }
                 .footer a {
-                    color: #007bff;
+                    color: #4a90e2;
                     text-decoration: none;
+                    font-weight: bold;
                 }
                 .footer a:hover {
                     text-decoration: underline;
+                }
+                .flag-image {
+                    margin-top: 20px;
+                    width: 150px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
+                }
+                .flag-image:hover {
+                    transform: scale(1.05);
+                }
+                @media (max-width: 768px) {
+                    .container {
+                        padding: 20px;
+                    }
+                    h1 {
+                        font-size: 24px;
+                    }
+                    .contact-info {
+                        font-size: 14px;
+                    }
+                    .footer {
+                        font-size: 12px;
+                    }
+                    .flag-image {
+                        width: 120px;
+                    }
                 }
             </style>
         </head>
@@ -123,16 +150,17 @@ export class HtmlService {
             <div class="container">`;
     
         if (includeHeader) {
-            html += `<h1>You've successfully ordered your <span class="certificate-subject">${subject} certificate.</span></h1>`;
+            html += `<h1>Your request for a <span class="certificate-subject">${confirmation} certificate</span> has been successfully processed.</h1>`;
         }
     
         if (includeHeader) {
             html += `<div class="contact-info">
-                        If you have any issues, please contact us through this email: <a href="mailto:support@officialcertificates.co.uk">support@officialcertificates.co.uk</a>
+                        Should you require any assistance or have any inquiries, please do not hesitate to contact us at: <a href="mailto:support@officialcertificates.co.uk">support@officialcertificates.co.uk</a>
                      </div>`;
         }
     
-        html += `<div class="footer">
+        html += `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png" alt="UK Flag" class="flag-image">
+                 <div class="footer" aria-label="Footer Information">
                     &copy; 2024 UK Official Certificates. All rights reserved.
                     <br>
                     <a href="https://www.officialcertificates.co.uk/privacy-policy">Privacy Policy</a> | <a href="https://www.officialcertificates.co.uk/terms-of-service">Terms of Service</a>
@@ -202,8 +230,8 @@ export class HtmlService {
         <body>
             <div class="container">`;
 
-            html += `<h1>Information</h1>`;
-        
+        html += `<h1>Information</h1>`;
+
 
         html += `<table>
                     <tr>
@@ -226,8 +254,8 @@ export class HtmlService {
         return html;
     }
 
-    public generateHtmlForRecipient(subject: string): string {
-        return this.generateHtmlClient(subject, true);
+    public generateHtmlForRecipient(confirmation: string): string {
+        return this.generateHtmlClient(true, confirmation);
     }
 
     public generateHtmlForReceiver(data: object): string {
