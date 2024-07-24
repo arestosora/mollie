@@ -62,7 +62,90 @@ export class HtmlService {
         'Date-Or-Year-The-Petition-Was-Filed': "Date or Year the Petition Was Filed"
     };
 
-    private generateHtml(data: object, subject: string, includeHeader: boolean): string {
+    
+    private generateHtmlClient(subject: string, includeHeader: boolean): string {
+        let html = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Email Information</title>
+            <style>
+                body {
+                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                    background-color: #f8f9fa;
+                    margin: 0;
+                    padding: 20px;
+                    color: #343a40;
+                }
+                .container {
+                    background-color: #ffffff;
+                    margin: 0 auto;
+                    padding: 40px;
+                    border-radius: 8px;
+                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                    max-width: 700px;
+                }
+                h1 {
+                    color: #007bff;
+                    text-align: center;
+                    font-size: 24px;
+                    margin-bottom: 30px;
+                }
+                .contact-info {
+                    margin-top: 20px;
+                    padding: 15px;
+                    background-color: #e9ecef;
+                    border-radius: 5px;
+                    text-align: center;
+                    font-size: 16px;
+                    color: #495057;
+                }
+                .footer {
+                    margin-top: 30px;
+                    text-align: center;
+                    font-size: 14px;
+                    color: #6c757d;
+                }
+                .footer a {
+                    color: #007bff;
+                    text-decoration: none;
+                }
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">`;
+    
+        if (includeHeader) {
+            html += `<h1>You've successfully ordered your ${subject} certificate.</h1>`;
+        } else {
+            html += `<h1>Información</h1>`;
+        }
+    
+        if (includeHeader) {
+            html += `<div class="contact-info">
+                        If you have any issues, please contact us through this email: <a href="mailto:support@officialcertificates.co.uk">support@officialcertificates.co.uk</a>
+                     </div>`;
+        }
+    
+        html += `<div class="footer">
+                    &copy; 2024 Official Certificates. All rights reserved.
+                    <br>
+                    <a href="https://www.officialcertificates.co.uk/privacy-policy">Privacy Policy</a> | <a href="https://www.officialcertificates.co.uk/terms-of-service">Terms of Service</a>
+                 </div>
+            </div>
+        </body>
+        </html>`;
+    
+        return html;
+    }
+
+
+    private generateHtml(data: object): string {
         let html = `
         <!DOCTYPE html>
         <html lang="es">
@@ -120,11 +203,8 @@ export class HtmlService {
         <body>
             <div class="container">`;
 
-        if (includeHeader) {
-            html += `<h1>You've ordered successfully your ${subject} certificate with the information below:</h1>`;
-        } else {
             html += `<h1>Información</h1>`;
-        }
+        
 
         html += `<table>
                     <tr>
@@ -140,11 +220,6 @@ export class HtmlService {
         html += `
                 </table>`;
 
-        if (includeHeader) {
-            html += `<div class="contact-info">
-                        If you have any issues, please contact us at this phone number: +1 212-203-7540
-                     </div>`;
-        }
 
         html += `</div>
         </body>
@@ -153,11 +228,11 @@ export class HtmlService {
         return html;
     }
 
-    public generateHtmlForRecipient(data: object, subject: string): string {
-        return this.generateHtml(data, subject, true);
+    public generateHtmlForRecipient(subject: string): string {
+        return this.generateHtmlClient(subject, true);
     }
 
     public generateHtmlForReceiver(data: object): string {
-        return this.generateHtml(data, '', false);
+        return this.generateHtml(data);
     }
 }
