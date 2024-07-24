@@ -62,7 +62,6 @@ export class HtmlService {
         'Date-Or-Year-The-Petition-Was-Filed': "Date or Year the Petition Was Filed"
     };
 
-    
     private generateHtmlClient(subject: string, includeHeader: boolean): string {
         let html = `
         <!DOCTYPE html>
@@ -93,6 +92,9 @@ export class HtmlService {
                     font-size: 24px;
                     margin-bottom: 30px;
                 }
+                .certificate-subject {
+                    color: #ff0000;
+                }
                 .contact-info {
                     margin-top: 20px;
                     padding: 15px;
@@ -121,9 +123,7 @@ export class HtmlService {
             <div class="container">`;
     
         if (includeHeader) {
-            html += `<h1>You've successfully ordered your ${subject} certificate.</h1>`;
-        } else {
-            html += `<h1>Información</h1>`;
+            html += `<h1>You've successfully ordered your <span class="certificate-subject">${subject} certificate.</span></h1>`;
         }
     
         if (includeHeader) {
@@ -133,7 +133,7 @@ export class HtmlService {
         }
     
         html += `<div class="footer">
-                    &copy; 2024 Official Certificates. All rights reserved.
+                    &copy; 2024 UK Official Certificates. All rights reserved.
                     <br>
                     <a href="https://www.officialcertificates.co.uk/privacy-policy">Privacy Policy</a> | <a href="https://www.officialcertificates.co.uk/terms-of-service">Terms of Service</a>
                  </div>
@@ -143,7 +143,6 @@ export class HtmlService {
     
         return html;
     }
-
 
     private generateHtml(data: object): string {
         let html = `
@@ -203,7 +202,7 @@ export class HtmlService {
         <body>
             <div class="container">`;
 
-            html += `<h1>Información</h1>`;
+            html += `<h1>Information</h1>`;
         
 
         html += `<table>
@@ -219,7 +218,6 @@ export class HtmlService {
 
         html += `
                 </table>`;
-
 
         html += `</div>
         </body>
